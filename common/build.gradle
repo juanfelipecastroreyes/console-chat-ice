@@ -1,2 +1,15 @@
-// Modulo common: java-library + tarea compileSlice (slice2java)
-// Pendiente: Paso 2 de la guia
+plugins {
+    id 'java-library'
+}
+
+tasks.register('compileSlice', Exec) {
+    description = 'Compiles Chat.ice into Java sources using slice2java'
+    doFirst {
+        file('src/main/java').mkdirs()
+    }
+    commandLine 'slice2java', '--output-dir', 'src/main/java', 'src/main/slice/Chat.ice'
+}
+
+tasks.named('compileJava') {
+    dependsOn 'compileSlice'
+}

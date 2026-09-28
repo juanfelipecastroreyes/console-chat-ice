@@ -1,2 +1,11 @@
-// Modulo server: plugin application, dependencia a :common, mainClass chat.server.ServerMain
-// Pendiente: Paso 3 de la guia
+plugins {
+    id 'application'
+}
+
+dependencies {
+    implementation project(':common')
+}
+
+application {
+    mainClass = 'chat.server.ServerMain'
+}

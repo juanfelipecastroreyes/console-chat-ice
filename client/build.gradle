@@ -1,2 +1,15 @@
-// Modulo client: plugin application, dependencia a :common, mainClass chat.client.ClientMain, standardInput
-// Pendiente: Paso 4 de la guia
+plugins {
+    id 'application'
+}
+
+dependencies {
+    implementation project(':common')
+}
+
+application {
+    mainClass = 'chat.client.ClientMain'
+}
+
+tasks.named('run', JavaExec) {
+    standardInput = System.in
+}
