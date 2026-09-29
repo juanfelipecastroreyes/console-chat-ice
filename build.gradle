@@ -1,2 +1,42 @@
-// Configuracion global (repositorios, Java 17, dependencia ZeroC Ice)
-// Pendiente: Paso 1 de la guia
+// Configuracion global del proyecto multimodulo (Taller Evaluativo Unidad 2)
+// - Plugin oficial de ZeroC Ice para compilar Slice (se aplica en :common)
+// - Repositorios, Java 17 y runtime de ZeroC Ice 3.7.10 para todos los modulos
+// - Tareas raiz runServer y runClient exigidas en la entrega
+
+plugins {
+    id 'com.zeroc.gradle.ice-builder.slice' version '1.5.0' apply false
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    dependencies {
+        // Runtime oficial de ZeroC Ice para Java
+        implementation 'com.zeroc:ice:3.7.10'
+    }
+}
+
+// ./gradlew runServer  -> inicia el servidor Ice
+tasks.register('runServer') {
+    group = 'application'
+    description = 'Inicia el servidor ZeroC Ice del chat'
+    dependsOn ':server:run'
+}
+
+// ./gradlew runClient  -> inicia un cliente de consola
+tasks.register('runClient') {
+    group = 'application'
+    description = 'Inicia un cliente del chat'
+    dependsOn ':client:run'
+}
